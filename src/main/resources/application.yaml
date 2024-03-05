@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: attendance-service
+
+  datasource:
+    url: jdbc:h2:mem:attendance
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+  h2:
+    console:
+      enabled: true
