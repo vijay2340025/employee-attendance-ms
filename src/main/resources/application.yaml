@@ -2,13 +2,19 @@ spring:
   application:
     name: attendance-service
 
+  profiles:
+    active: kafka
+
   datasource:
     url: jdbc:h2:mem:attendance
 
   jpa:
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 
   h2:
     console:
