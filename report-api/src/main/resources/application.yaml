@@ -5,6 +5,8 @@ spring:
   h2:
     console:
       enabled: true
+      settings:
+        web-allow-others: true
   datasource:
     url: jdbc:h2:mem:report
   jpa:
@@ -16,4 +18,4 @@ spring:
     active: kafka
 
 server:
-  port: 8801
+  port: 8802
