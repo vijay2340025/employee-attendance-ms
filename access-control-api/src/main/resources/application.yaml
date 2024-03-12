@@ -12,4 +12,7 @@ spring:
 
 logging:
   level:
-    root: DEBUG
+    root: INFO
+
+server:
+  port: 8800

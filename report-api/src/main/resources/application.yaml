@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: report-api
+
+  profiles:
+    active: kafka
+
+server:
+  port: 8801

@@ -4,6 +4,7 @@ import com.employee.attendance.dto.EmployeeDto;
 import com.employee.attendance.entity.EmployeeEvent;
 import com.employee.attendance.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,10 +23,15 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeEvents);
     }
 
-
     @PostMapping("/swipe")
     public ResponseEntity<EmployeeEvent> swipe(@RequestBody EmployeeDto employeeDto) {
         EmployeeEvent employeeEvent = employeeService.updateEmployeeEvent(employeeDto);
         return ResponseEntity.ok(employeeEvent);
+    }
+
+    @GetMapping("/calculate")
+    public ResponseEntity<Void> calculateTotalHours() {
+        employeeService.calculateTotalHours();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
