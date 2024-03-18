@@ -1,4 +1,15 @@
 services:
+
+  access-control-service:
+    build: "./access-control-api"
+    container_name: access-control-service
+    ports:
+      - 8801:8801
+    networks:
+      - local-net
+    depends_on:
+      - kafka
+
   report-service:
     build: "./report-api"
     container_name: 'report-service'
