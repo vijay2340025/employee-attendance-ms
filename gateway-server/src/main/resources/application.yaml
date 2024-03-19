@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: report-api
+          uri: http://localhost:8802
+          predicates:
+            - Path=/report/**
+
+logging:
+  level:
+    root: DEBUG
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8050/eureka/

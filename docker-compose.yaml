@@ -1,14 +1,46 @@
 services:
 
+  api-gateway:
+    build: "./gateway-server"
+    container_name: 'api-gateway'
+    ports:
+      - 8080:8080
+    networks:
+      - local-net
+    depends_on:
+      - access-control-service
+      - report-service
+    environment:
+      spring.cloud.gateway.routes[0].id: report-api
+      spring.cloud.gateway.routes[0].uri: http://report-service:8802/
+      spring.cloud.gateway.routes[0].predicates[0]: Path=/report/**
+      spring.cloud.gateway.routes[1].id: access-control-api
+      spring.cloud.gateway.routes[1].uri: http://access-control-service:8801
+      spring.cloud.gateway.routes[1].predicates[0]: Path=/employee/**
+
   access-control-service:
     build: "./access-control-api"
-    container_name: access-control-service
+    container_name: 'access-control-service'
     ports:
       - 8801:8801
     networks:
       - local-net
     depends_on:
       - kafka
+      - mongo-db
+    environment:
+      spring.kafka.bootstrap-servers: http://kafka:9092
+      spring.data.mongodb.uri: mongodb://mongo-db:27017
+      server.port: 8801
+
+
+  mongo-db:
+    image: mongo
+    container_name: 'mongo-db'
+    ports:
+      - 27017:27017
+    networks:
+      - local-net
 
   report-service:
     build: "./report-api"

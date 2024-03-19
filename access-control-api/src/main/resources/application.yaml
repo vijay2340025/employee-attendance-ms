@@ -15,4 +15,4 @@ logging:
     root: INFO
 
 server:
-  port: 8800
+  port: 8801
