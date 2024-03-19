@@ -56,6 +56,19 @@ services:
     environment:
       spring.kafka.bootstrap-servers: http://kafka:9092
 
+  notification-service:
+    build: "./notification-api"
+    container_name: 'notification-service'
+    ports:
+      - 8803:8803
+    networks:
+      - local-net
+    depends_on:
+      - kafka
+      - access-control-service
+    environment:
+      spring.kafka.bootstrap-servers: http://kafka:9092
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper

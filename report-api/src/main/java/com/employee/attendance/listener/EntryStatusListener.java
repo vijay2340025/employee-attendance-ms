@@ -14,7 +14,7 @@ public class EntryStatusListener {
     @Autowired
     private ReportService reportService;
 
-    @KafkaListener(topics = "attendance_report", groupId = "report-app")
+    @KafkaListener(topics = "attendance_report_topic", groupId = "report-app")
     public void updateStatus(ConsumerRecord<Integer, String> record) {
         Integer employeeId = record.key();
         String status = record.value();

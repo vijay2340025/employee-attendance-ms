@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: notification-api
+
+  profiles:
+    active: kafka
+
+logging:
+  level:
+    root: INFO
+
+server:
+  port: 8803
