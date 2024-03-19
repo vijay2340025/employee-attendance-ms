@@ -14,6 +14,7 @@
         <module>access-control-api</module>
       <module>report-api</module>
         <module>gateway-server</module>
+        <module>jwt-service</module>
     </modules>
     <properties>
     <java.version>17</java.version>
