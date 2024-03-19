@@ -70,7 +70,10 @@ public class EmployeeService {
                 } else if (totalDuration > 240) {
                     status = "present";
                 }
-                kafkaTemplate.send("attendance_report", employeeId, status);
+                kafkaTemplate.send("attendance_report_topic", employeeId, status);
+                if (status.equalsIgnoreCase("absent")) {
+                    kafkaTemplate.send("absentee_notification_topic", employeeId, status);
+                }
             }
         }
 
