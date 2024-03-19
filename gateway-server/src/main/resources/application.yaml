@@ -8,6 +8,8 @@ spring:
           uri: http://localhost:8802
           predicates:
             - Path=/report/**
+          filters:
+            - name: AuthFilter
 
 logging:
   level:
