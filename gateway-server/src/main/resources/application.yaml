@@ -10,6 +10,12 @@ spring:
             - Path=/report/**
           filters:
             - name: AuthFilter
+        - id: access-control-api
+          uri: http://localhost:8801
+          predicates:
+            - Path=/employee/**
+          filters:
+            - name: AuthFilter
 
 logging:
   level:

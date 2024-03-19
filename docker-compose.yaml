@@ -14,9 +14,11 @@ services:
       spring.cloud.gateway.routes[0].id: report-api
       spring.cloud.gateway.routes[0].uri: http://report-service:8802/
       spring.cloud.gateway.routes[0].predicates[0]: Path=/report/**
+      spring.cloud.gateway.routes[0].filters[0].name: AuthFilter
       spring.cloud.gateway.routes[1].id: access-control-api
       spring.cloud.gateway.routes[1].uri: http://access-control-service:8801
       spring.cloud.gateway.routes[1].predicates[0]: Path=/employee/**
+      spring.cloud.gateway.routes[1].filters[0].name: AuthFilter
 
   access-control-service:
     build: "./access-control-api"
