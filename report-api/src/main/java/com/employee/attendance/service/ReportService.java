@@ -1,5 +1,6 @@
 package com.employee.attendance.service;
 
+import com.employee.attendance.dto.EmployeeDto;
 import com.employee.attendance.dto.ReportDto;
 import com.employee.attendance.entity.Employee;
 import com.employee.attendance.entity.Report;
@@ -43,5 +44,11 @@ public class ReportService {
         Employee employee = optionalEmployee.orElseGet(Employee::new);
         report.setEmployee(employee);
         reportRepository.save(report);
+    }
+
+    public Employee createEmployee(EmployeeDto e) {
+        Employee employee= new Employee();
+        employee.setName(e.getName());
+        return employeeRepository.save(employee);
     }
 }
