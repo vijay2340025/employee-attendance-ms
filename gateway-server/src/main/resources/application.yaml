@@ -16,6 +16,10 @@ spring:
             - Path=/employee/**
           filters:
             - name: AuthFilter
+        - id: jwt-api
+          uri: http://localhost:9898
+          predicates:
+            - Path=/auth/**
 
 logging:
   level:
