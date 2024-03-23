@@ -17,6 +17,11 @@ spring:
 server:
   port: 9898
 
+management:
+  endpoint:
+    web:
+      exposure:
+        include: *
 
 logging:
   level:
