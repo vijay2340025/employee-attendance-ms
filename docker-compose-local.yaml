@@ -1,5 +1,15 @@
 services:
 
+  jwt:
+    build: ./jwt-service
+    container_name: 'jwt'
+    ports:
+      - 9898:9898
+    networks:
+      - local-net
+    depends_on:
+      - api-gateway
+
   api-gateway:
     build: "./gateway-server"
     container_name: 'api-gateway'
@@ -19,6 +29,8 @@ services:
       spring.cloud.gateway.routes[1].uri: http://access-control-service:8801
       spring.cloud.gateway.routes[1].predicates[0]: Path=/employee/**
       spring.cloud.gateway.routes[1].filters[0].name: AuthFilter
+      spring.cloud.gateway.routes[2].uri: http://jwt:9898
+      spring.cloud.gateway.routes[2].predicates[0]: Path=/auth/**
 
   access-control-service:
     build: "./access-control-api"

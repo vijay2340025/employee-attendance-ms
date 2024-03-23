@@ -1,0 +1,114 @@
+services:
+
+  jwt:
+    build: ./jwt-service
+    container_name: 'jwt'
+    ports:
+      - 9898:9898
+    networks:
+      - local-net
+    depends_on:
+      - api-gateway
+
+  api-gateway:
+    build: "./gateway-server"
+    container_name: 'api-gateway'
+    ports:
+      - 8080:8080
+    networks:
+      - local-net
+    depends_on:
+      - access-control-service
+      - report-service
+    environment:
+      spring.cloud.gateway.routes[0].id: report-api
+      spring.cloud.gateway.routes[0].uri: http://report-service:8802/
+      spring.cloud.gateway.routes[0].predicates[0]: Path=/report/**
+      spring.cloud.gateway.routes[0].filters[0].name: AuthFilter
+      spring.cloud.gateway.routes[1].id: access-control-api
+      spring.cloud.gateway.routes[1].uri: http://access-control-service:8801
+      spring.cloud.gateway.routes[1].predicates[0]: Path=/employee/**
+      spring.cloud.gateway.routes[1].filters[0].name: AuthFilter
+      spring.cloud.gateway.routes[2].uri: http://jwt:9898
+      spring.cloud.gateway.routes[2].predicates[0]: Path=/auth/**
+
+  access-control-service:
+    build: "./access-control-api"
+    container_name: 'access-control-service'
+    ports:
+      - 8801:8801
+    networks:
+      - local-net
+    depends_on:
+      - kafka
+      - mongo-db
+    environment:
+      spring.kafka.bootstrap-servers: http://kafka:9092
+      spring.data.mongodb.uri: mongodb://mongo-db:27017
+      server.port: 8801
+
+
+  mongo-db:
+    image: mongo
+    container_name: 'mongo-db'
+    ports:
+      - 27017:27017
+    networks:
+      - local-net
+
+  report-service:
+    build: "./report-api"
+    container_name: 'report-service'
+    ports:
+      - 8802:8802
+    networks:
+      - local-net
+    depends_on:
+      - kafka
+    environment:
+      spring.kafka.bootstrap-servers: http://kafka:9092
+
+  notification-service:
+    build: "./notification-api"
+    container_name: 'notification-service'
+    ports:
+      - 8803:8803
+    networks:
+      - local-net
+    depends_on:
+      - kafka
+      - access-control-service
+    environment:
+      spring.kafka.bootstrap-servers: http://kafka:9092
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - local-net
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+    networks:
+      - local-net
+
+networks:
+  local-net:
+    driver: bridge
+    name: local-net
+
