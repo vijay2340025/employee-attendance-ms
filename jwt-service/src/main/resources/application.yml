@@ -21,7 +21,7 @@ management:
   endpoint:
     web:
       exposure:
-        include: *
+        include: beans,health,info
 
 logging:
   level:

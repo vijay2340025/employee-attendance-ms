@@ -1,7 +1,7 @@
 services:
 
   jwt:
-    build: ./jwt-service
+    image: vijay2340025/employee-attendance-ms-jwt
     container_name: 'jwt'
     ports:
       - 9898:9898
@@ -11,7 +11,7 @@ services:
       - api-gateway
 
   api-gateway:
-    build: "./gateway-server"
+    image: vijay2340025/employee-attendance-ms-api-gateway
     container_name: 'api-gateway'
     ports:
       - 8080:8080
@@ -33,7 +33,7 @@ services:
       spring.cloud.gateway.routes[2].predicates[0]: Path=/auth/**
 
   access-control-service:
-    build: "./access-control-api"
+    image: vijay2340025/employee-attendance-ms-access-control-service
     container_name: 'access-control-service'
     ports:
       - 8801:8801
@@ -57,7 +57,7 @@ services:
       - local-net
 
   report-service:
-    build: "./report-api"
+    image: vijay2340025/employee-attendance-ms-report-service
     container_name: 'report-service'
     ports:
       - 8802:8802
@@ -69,7 +69,7 @@ services:
       spring.kafka.bootstrap-servers: http://kafka:9092
 
   notification-service:
-    build: "./notification-api"
+    image: vijay2340025/employee-attendance-ms-notification-service
     container_name: 'notification-service'
     ports:
       - 8803:8803
