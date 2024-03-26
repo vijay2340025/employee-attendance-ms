@@ -17,6 +17,18 @@ pipeline {
             }
         }
 
+        stage('plan') {
+            steps {
+                sh 'cd pipeline/infra/ && terraform plan'
+            }
+        }
+
+        stage('apply') {
+            steps {
+                sh 'cd pipeline/infra/ && terraform apply -auto-approve'
+            }
+        }
+
         stage('clean') {
             steps {
                 cleanWs()
