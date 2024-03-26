@@ -10,8 +10,8 @@ pipeline {
 
         stage('init') {
             steps {
-                sh "sed -i '3s/.*/  access_key=\"$params.access_key\"/' ec2_instance.tf\n"
-                sh "sed -i '4s/.*/  secret_key=\"$params.secret_key\"/' ec2_instance.tf\n"
+                sh "sed -i '3s/.*/  access_key=\"$params.access_key\"/'  pipeline/infra/ec2_instance.tf"
+                sh "sed -i '4s/.*/  secret_key=\"$params.secret_key\"/'  pipeline/infra/ec2_instance.tf"
                 sh 'cat pipeline/infra/ec2_instance.tf'
                 sh 'cd pipeline/infra/ && terraform init'
             }
