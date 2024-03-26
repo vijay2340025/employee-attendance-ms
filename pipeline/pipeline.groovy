@@ -16,5 +16,11 @@ pipeline {
                 sh 'cd pipeline/infra/ && terraform init'
             }
         }
+
+        stage('clean') {
+            steps {
+                cleanWs()
+            }
+        }
     }
 }
