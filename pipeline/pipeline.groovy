@@ -10,6 +10,7 @@ pipeline {
 
         stage('init') {
             steps {
+                echo '$access_key'
                 sh 'sed -i \'3s/.*/  access_key=$access_key/\' pipeline/infra/ec2_instance.tf\n'
                 sh 'sed -i \'4s/.*/  secret_key=$params.secret_key/\' pipeline/infra/ec2_instance.tf\n'
                 sh 'cat pipeline/infra/ec2_instance.tf'
