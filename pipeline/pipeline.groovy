@@ -13,7 +13,7 @@ pipeline {
                 sh 'sed -i \'3s/.*/  access_key="${access_key}"/\' pipeline/infra/ec2_instance.tf\n'
                 sh 'sed -i \'4s/.*/  secret_key="${secret_key}"/\' pipeline/infra/ec2_instance.tf\n'
                 sh 'cat pipeline/infra/ec2_instance.tf'
-                sh 'init terraform pipeline/infra/'
+                sh 'cd pipeline/infra/ && terraform init'
             }
         }
     }
