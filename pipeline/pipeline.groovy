@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('checkout') {
-            steps {
-                git branch: 'main', credentialsId: 'da6f6042-ce09-4a44-9145-357085d53474', url: 'https://github.com/vijay2340025/employee-attendance-ms.git'
-            }
-        }
-
         stage('init') {
             steps {
                 sh "sed -i '2s/.*/  default=\"$params.access_key\"/'  pipeline/infra/variables.tf"
@@ -19,13 +13,13 @@ pipeline {
 
         stage('plan') {
             steps {
-                sh 'cd pipeline/infra/ && terraform plan'
+                sh 'cd pipeline/infra/ && terraform plan -var-file=dev.tfvars'
             }
         }
 
         stage('apply') {
             steps {
-                sh 'cd pipeline/infra/ && terraform apply -auto-approve'
+                sh 'cd pipeline/infra/ && terraform apply -auto-approve -var-file=dev.tfvars'
             }
         }
 
