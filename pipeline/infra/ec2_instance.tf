@@ -1,14 +1,14 @@
 provider "aws" {
-  region     = "ap-south-1"
-  access_key = ""
-  secret_key = ""
+  region     = var.region
+  access_key = var.access_key
+  secret_key = var.secret_key
 }
 
 resource "aws_instance" "this" {
-  ami                     = "ami-007020fd9c84e18c7"
-  instance_type           = "t2.micro"
-  
+  ami           = var.ami
+  instance_type = var.instance_type
+
   tags = {
-    Name = "mini-server"
+    Name = var.instance_name
   }
 }
