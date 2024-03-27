@@ -32,7 +32,7 @@ pipeline {
             }
         }
 
-        stage('apply') {
+        stage('destroy') {
             when {
                 expression { params.state == "stop" }
             }
