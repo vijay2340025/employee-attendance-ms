@@ -37,7 +37,7 @@ pipeline {
                 expression { params.state == "stop" }
             }
             steps {
-                sh 'cd pipeline/infra/ && terraform destroy'
+                sh 'cd pipeline/infra/ && terraform destroy -auto-approve -var-file=dev.tfvars'
             }
         }
 
