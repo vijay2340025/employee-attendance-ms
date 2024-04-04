@@ -8,10 +8,6 @@ resource "aws_security_group" "allow_service_port" {
   }
 }
 
-data "aws_vpc" "default" {
-  default = true
-}
-
 resource "aws_vpc_security_group_ingress_rule" "allow_service_port_ipv4" {
   security_group_id = aws_security_group.allow_service_port.id
   cidr_ipv4         = "0.0.0.0/0"
@@ -23,4 +19,12 @@ resource "aws_vpc_security_group_ingress_rule" "allow_service_port_ipv4" {
 
 output "vpc_id" {
   value = data.aws_vpc.default.id
+}
+
+output "az1_id" {
+  value = data.aws_subnet.az_1.id
+}
+
+output "az2_id" {
+  value = data.aws_subnet.az_2.id
 }
