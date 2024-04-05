@@ -43,6 +43,12 @@
         </dependency>
     </dependencies>
 
+    <scm>
+        <url>scm:git:https://github.com/vijay2340025/employee-attendance-ms.git</url>
+        <connection>scm:git:https://github.com/vijay2340025/employee-attendance-ms.git</connection>
+        <tag>HEAD</tag>
+    </scm>
+
     <build>
         <plugins>
             <plugin>
@@ -56,6 +62,11 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.1</version>
             </plugin>
         </plugins>
     </build>
