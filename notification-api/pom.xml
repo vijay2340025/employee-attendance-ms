@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.domain</groupId>
     <artifactId>notification-api</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
     <name>notification-api</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -45,6 +45,7 @@
     <scm>
         <url>scm:git:https://github.com/vijay2340025/employee-attendance-ms.git</url>
         <connection>scm:git:https://github.com/vijay2340025/employee-attendance-ms.git</connection>
+    <tag>HEAD</tag>
   </scm>
 
     <build>
