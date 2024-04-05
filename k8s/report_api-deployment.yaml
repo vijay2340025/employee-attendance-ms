@@ -15,7 +15,7 @@ spec:
         app: report-api
     spec:
       containers:
-      - image: vijay2340025/report-service:latest
+      - image: vijay2340025/report-api:latest
         name: report-api
         imagePullPolicy: Always
         env:
@@ -39,5 +39,5 @@ spec:
       protocol: TCP
       targetPort: 8802
   selector:
-    app: access-api
+    app: report-api
   type: ClusterIP
