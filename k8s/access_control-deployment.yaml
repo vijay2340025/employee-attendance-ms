@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: access-control
+  name: access-control
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: access-control
+  template:
+    metadata:
+      labels:
+        app: access-control
+    spec:
+      containers:
+      - image: vijay2340025/access-control-service:latest
+        name: access-control
+        imagePullPolicy: Always
+        env:
+            - name: logging.level.root
+              value: INFO
+            - name: spring.kafka.bootstrap-servers
+              value: http://kafka-server:9092
+            - name: spring.data.mongodb.uri
+              value: mongodb://mongo:27017
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: access-control
+  name: access-control
+spec:
+  ports:
+    - name: 8801-8801
+      port: 8801
+      protocol: TCP
+      targetPort: 8801
+  selector:
+    app: access-control
+  type: ClusterIP
+
+
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  labels:
+#    app: access-control
+#  name: access-control
+#spec:
+#  ports:
+#    - name: 8801-8801
+#      nodePort: 30001
+#      port: 8801
+#      protocol: TCP
+#      targetPort: 8801
+#  selector:
+#    app: access-control
+#  type: NodePort

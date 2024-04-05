@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: report-api
+  name: report-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: report-api
+  template:
+    metadata:
+      labels:
+        app: report-api
+    spec:
+      containers:
+      - image: vijay2340025/report-service:latest
+        name: report-api
+        imagePullPolicy: Always
+        env:
+            - name: logging.level.root
+              value: INFO
+            - name: spring.kafka.bootstrap-servers
+              value: http://kafka-server:9092
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: report-api
+  name: report-api
+spec:
+  ports:
+    - name: 8802-8802
+      port: 8802
+      protocol: TCP
+      targetPort: 8802
+  selector:
+    app: access-api
+  type: ClusterIP

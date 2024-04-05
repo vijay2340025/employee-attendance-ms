@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kafka-server
+  name: kafka-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-server
+  template:
+    metadata:
+      labels:
+        app: kafka-server
+    spec:
+      containers:
+      - image: confluentinc/cp-kafka:latest
+        name: kafka-server
+        imagePullPolicy: Always
+        env:
+          - name: KAFKA_BROKER_ID
+            value: "1"
+          - name: KAFKA_ZOOKEEPER_CONNECT
+            value: "zookeeper:2181"
+          - name: KAFKA_ADVERTISED_LISTENERS
+            value: "PLAINTEXT://kafka-server:29092,PLAINTEXT_HOST://kafka-server:9092"
+          - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+            value: "PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+          - name: KAFKA_INTER_BROKER_LISTENER_NAME
+            value: "PLAINTEXT"
+          - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+            value: "1"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kafka-server
+  name: kafka-server
+spec:
+  ports:
+    - name: 9092-9092
+      port: 9092
+      protocol: TCP
+      targetPort: 9092
+    - name: 29092-29092
+      port: 29092
+      protocol: TCP
+      targetPort: 29092
+  selector:
+    app: kafka-server
+  type: ClusterIP
