@@ -10,7 +10,7 @@ pipeline {
 
         stage('docker') {
             steps {
-                withDockerRegistry(credentialsId: 'docker') {
+                withDockerRegistry(url: '', credentialsId: 'docker') {
                     sh 'docker build -t vijay2340025/access-control-service:latest -f ./access-control-api/Dockerfile'
                     sh 'docker push vijay2340025/access-control-service:latest'
                 }
