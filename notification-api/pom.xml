@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.domain</groupId>
     <artifactId>notification-api</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>notification-api</name>
     <description>Demo project for Spring Boot</description>
     <properties>
