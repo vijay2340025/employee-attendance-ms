@@ -1,6 +1,6 @@
 package com.employee.attendance.service;
 
-import com.employee.attendance.dto.EmployeeDto;
+import com.employee.attendance.dto.EmployeeStatusDto;
 import com.employee.attendance.entity.EmployeeEvent;
 import com.employee.attendance.entity.EntryStatus;
 import com.employee.attendance.repository.EmployeeEntryRepository;
@@ -29,15 +29,15 @@ public class EmployeeService {
     @Autowired
     private KafkaTemplate<Integer, String> kafkaTemplate;
 
-    public EmployeeEvent updateEmployeeEvent(EmployeeDto employeeDto) {
-        EntryStatus entryStatus = switch (employeeDto.getStatus().toLowerCase()) {
+    public EmployeeEvent updateEmployeeEvent(EmployeeStatusDto employeeStatusDto) {
+        EntryStatus entryStatus = switch (employeeStatusDto.getStatus().toLowerCase()) {
             case "in" -> EntryStatus.SWIPE_IN;
             case "out" -> EntryStatus.SWIPE_OUT;
-            default -> throw new IllegalStateException("Unexpected value: " + employeeDto.getEmployeeId());
+            default -> throw new IllegalStateException("Unexpected value: " + employeeStatusDto.getEmployeeId());
         };
 
         EmployeeEvent employeeEvent = new EmployeeEvent();
-        employeeEvent.setEmployeeId(employeeDto.getEmployeeId());
+        employeeEvent.setEmployeeId(employeeStatusDto.getEmployeeId());
         employeeEvent.setTimestamp(LocalDateTime.now());
         employeeEvent.setEntryStatus(entryStatus);
 

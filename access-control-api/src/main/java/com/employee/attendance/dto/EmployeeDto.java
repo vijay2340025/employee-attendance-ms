@@ -2,10 +2,9 @@ package com.employee.attendance.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class EmployeeDto {
-
-    private int employeeId;
-
-    private String status;
+public class EmployeeDto implements Serializable {
+    private String name;
 }

@@ -7,6 +7,7 @@ import com.employee.attendance.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,9 +26,9 @@ public class ReportController {
         return ResponseEntity.ok(reportDtoList);
     }
 
-    @GetMapping("/create")
-    public ResponseEntity<Employee> create(EmployeeDto e) {
+    @PostMapping("/create")
+    public ResponseEntity<EmployeeDto> create(EmployeeDto e) {
         Employee employee = reportService.createEmployee(e);
-        return ResponseEntity.ok(employee);
+        return ResponseEntity.ok(e);
     }
 }
