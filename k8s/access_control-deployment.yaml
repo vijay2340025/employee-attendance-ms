@@ -15,7 +15,7 @@ spec:
         app: access-control
     spec:
       containers:
-      - image: vijay2340025/access-control-api:latest
+      - image: vijay2340025/access-control-service:latest
         name: access-control
         imagePullPolicy: Always
         env:
