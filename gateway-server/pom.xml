@@ -75,7 +75,46 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <host.access-control>localhost</host.access-control>
+                <port.access-control>8801</port.access-control>
+                <host.jwt>localhost</host.jwt>
+                <port.jwt>9898</port.jwt>
+                <host.report>localhost</host.report>
+                <port.report>8802</port.report>
+            </properties>
+        </profile>
+        <profile>
+            <id>burner</id>
+            <properties>
+                <host.access-control>access-control</host.access-control>
+                <port.access-control>8801</port.access-control>
+                <host.jwt>jwt</host.jwt>
+                <port.jwt>9898</port.jwt>
+                <host.report>report-api</host.report>
+                <port.report>8802</port.report>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

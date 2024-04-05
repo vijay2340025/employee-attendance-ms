@@ -5,19 +5,19 @@ spring:
     gateway:
       routes:
         - id: report-api
-          uri: http://localhost:8802
+          uri: http://${host.report}:${port.report}
           predicates:
             - Path=/report/**
           filters:
             - name: AuthFilter
         - id: access-control-api
-          uri: http://localhost:8801
+          uri: http://${host.access-control}:${port.access-control}
           predicates:
             - Path=/employee/**
           filters:
             - name: AuthFilter
         - id: jwt-api
-          uri: http://localhost:9898
+          uri: http://${host.jwt}:${port.jwt}
           predicates:
             - Path=/auth/**
 
