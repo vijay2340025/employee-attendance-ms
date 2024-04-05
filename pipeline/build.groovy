@@ -9,9 +9,11 @@ pipeline {
         }
 
         stage('docker') {
-            withDockerRegistry(credentialsId: 'docker') {
-                sh 'docker build -t vijay2340025/access-control-service:latest -f ./access-control-api/Dockerfile'
-                sh 'docker push vijay2340025/access-control-service:latest'
+            steps {
+                withDockerRegistry(credentialsId: 'docker') {
+                    sh 'docker build -t vijay2340025/access-control-service:latest -f ./access-control-api/Dockerfile'
+                    sh 'docker push vijay2340025/access-control-service:latest'
+                }
             }
         }
 
