@@ -3,6 +3,7 @@ package com.domain.controller;
 import com.domain.dto.AuthRequest;
 import com.domain.entity.UserCredential;
 import com.domain.service.AuthService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@Slf4j
 public class AuthController {
     @Autowired
     private AuthService service;
@@ -20,6 +22,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String addNewUser(@RequestBody UserCredential user) {
+        log.info("UserCredential {} received", user);
         return service.saveUser(user);
     }
 
